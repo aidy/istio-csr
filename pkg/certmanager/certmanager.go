@@ -38,8 +38,7 @@ import (
 )
 
 const (
-	identityAnnotation      = "istio.cert-manager.io/identities"
-	fireflyPolicyAnnotation = "firefly.venafi.com/policy-name"
+	identityAnnotation = "istio.cert-manager.io/identities"
 )
 
 type Options struct {
