@@ -53,7 +53,7 @@ type Options struct {
 	// IssuerRef is used as the issuerRef on created CertificateRequests.
 	IssuerRef cmmeta.ObjectReference
 
-	FireflyOptions FireflyOptions
+	AdditionalAnnotations map[string]string
 }
 
 type Signer interface {
@@ -114,9 +114,9 @@ func (m *manager) Sign(ctx context.Context, identities string, csrPEM []byte, du
 		},
 	}
 
-	if utilfeature.DefaultMutableFeatureGate.Enabled(feature.FireflyPolicyNameAnnotation) {
-		if m.opts.FireflyOptions.PolicyName != "" {
-			cr.ObjectMeta.Annotations[fireflyPolicyAnnotation] = m.opts.FireflyOptions.PolicyName
+	if utilfeature.DefaultMutableFeatureGate.Enabled(feature.AdditionalAnnotations) {
+		for k, v := range m.opts.AdditionalAnnotations {
+			cr.ObjectMeta.Annotations[k] = v
 		}
 	}
 	// Create CertificateRequest and wait for it to be successfully signed.

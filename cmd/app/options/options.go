@@ -136,7 +136,7 @@ func (o *Options) addFlags(cmd *cobra.Command) {
 	o.addTLSFlags(nfs.FlagSet("TLS"))
 	o.addServerFlags(nfs.FlagSet("Server"))
 	o.addControllerFlags(nfs.FlagSet("controller"))
-	o.addFireflyFlags(nfs.FlagSet("firefly"))
+	o.addAdditionalAnnotationsFlags(nfs.FlagSet("additional-annotations"))
 
 	usageFmt := "Usage:\n  %s\n"
 	cmd.SetUsageFunc(func(cmd *cobra.Command) error {
@@ -229,10 +229,10 @@ func (o *Options) addCertManagerFlags(fs *pflag.FlagSet) {
 		"Group of the issuer to sign istio workload certificates.")
 }
 
-func (o *Options) addFireflyFlags(fs *pflag.FlagSet) {
-	fs.StringVarP(&o.CertManager.FireflyOptions.PolicyName,
-		"firefly-policy-name", "", "",
-		"Name of the policy for firefly to use.")
+func (o *Options) addAdditionalAnnotationsFlags(fs *pflag.FlagSet) {
+	fs.StringToStringVar(&o.CertManager.AdditionalAnnotations,
+		"additional-annotations", map[string]string{},
+		"Any additional annotations to include on certificate requests")
 }
 
 func (o *Options) addServerFlags(fs *pflag.FlagSet) {
