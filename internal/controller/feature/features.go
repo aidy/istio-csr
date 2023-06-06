@@ -26,8 +26,8 @@ import (
 const (
 	// alpha: v0.7.2
 	//
-	// AdditionalAnnotations allows specification of an additional CR annotation
-	// TODO: improve this wording
+	// AdditionalAnnotations allows additional annotations to be specified on
+	// certificate requests
 	AdditionalAnnotations featuregate.Feature = "AdditionalAnnotations"
 )
 
@@ -35,9 +35,9 @@ func init() {
 	runtime.Must(utilfeature.DefaultMutableFeatureGate.Add(defaultIstioCSRFeatureGates))
 }
 
-// defaultCertManagerFeatureGates consists of all known cert-manager feature keys.
+// defaultIstioCSRFeatureGates consists of all known istio-csr feature keys.
 // To add a new feature, define a key for it above and add it here. The features will be
-// available on the cert-manager controller binary.
+// available on the istio-csr binary.
 var defaultIstioCSRFeatureGates = map[featuregate.Feature]featuregate.FeatureSpec{
 	AdditionalAnnotations: {Default: false, PreRelease: featuregate.Alpha},
 }
